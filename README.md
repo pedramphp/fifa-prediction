@@ -19,6 +19,12 @@ once you type grunt in command line your chrome web browser will load.
 http://www.kimonolabs.com/api/cp27e5wi?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
 ```
 
+### All Matches
+-----------------
+```url
+http://www.kimonolabs.com/api/98unoz7e?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
+```
+
 ###All Qualified Teams
 ---------------------------
 ```url
