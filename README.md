@@ -10,6 +10,16 @@ grunt
 once you type grunt in command line your chrome web browser will load.
 
 
+#API
+------------------
+
+###Daily match scores
+---------------------------
+```ss
+http://www.kimonolabs.com/api/cp27e5wi?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
+```
+
+
 #Game Rules
 -----------------
 
