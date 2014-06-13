@@ -15,10 +15,15 @@ once you type grunt in command line your chrome web browser will load.
 
 ###Daily match scores
 ---------------------------
-```ss
+```url
 http://www.kimonolabs.com/api/cp27e5wi?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
 ```
 
+###All Qualified Teams
+---------------------------
+```url
+http://www.kimonolabs.com/api/aqp90wd0?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
+```
 
 #Game Rules
 -----------------
