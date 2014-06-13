@@ -1,0 +1,203 @@
+/**/
+/* ========================================
+   Utility Classes & Mixins
+   ======================================= */
+/*	CLEAR FIX - Mixin
+----------------------*/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+.clearfix:after {
+  clear: both;
+}
+/*	CAPITALIZE - Mixin
+------------------*/
+/*	GENERAL
+------------------*/
+.hide {
+  display: none;
+}
+.hide-force {
+  display: none !important;
+}
+/* CSS image replacement
+-------------------------*/
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.show {
+  display: block;
+}
+.show-force {
+  display: block !important;
+}
+.overflow-hide {
+  overflow: hidden;
+}
+.white-bkg {
+  background: #fff;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.block {
+  display: block;
+}
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
+.border-box {
+  box-sizing: border-box;
+}
+.clear {
+  clear: both;
+}
+.float-row {
+  *zoom: 1;
+}
+.float-row:before,
+.float-row:after {
+  display: table;
+  content: " ";
+}
+.float-row:after {
+  clear: both;
+}
+.float-row:before,
+.float-row:after {
+  display: table;
+  content: " ";
+}
+.float-row:after {
+  clear: both;
+}
+.float-row > * {
+  display: block;
+  float: left;
+}
+/* don't use this for images */
+.fluid {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+.fluid-image {
+  display: block;
+  box-sizing: border-box;
+  max-width: 100%;
+  height: auto;
+}
+.invisible {
+  visibility: hidden;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.pointer {
+  cursor: pointer;
+}
+.text-center {
+  text-align: center;
+}
+.full-width {
+  width: 100%;
+}
+.split {
+  width: 50%;
+}
+.auto-width {
+  width: auto;
+}
+.space-top {
+  margin-top: 10px;
+}
+.space-bottom {
+  margin-bottom: 10px;
+}
+.space-left {
+  margin-left: 10px;
+}
+.space-right {
+  margin-right: 10px;
+}
+.space-vertical {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.space-horizontal {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.space-zero {
+  margin: 0;
+}
+.pad-top {
+  padding-top: 10px;
+}
+.pad-bottom {
+  padding-bottom: 10px;
+}
+.pad-left {
+  padding-left: 10px;
+}
+.pad-right {
+  padding-right: 10px;
+}
+.pad-zero {
+  padding: 0;
+}
+.pad-vertical {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.pad-horizontal {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.z-index {
+  position: relative;
+  z-index: 1;
+}
+.x-small {
+  font-size: .71em;
+}
+.small {
+  font-size: .86em;
+}
+.medium {
+  font-size: 1em;
+}
+.large {
+  font-size: 1.43em;
+}
+.x-large {
+  font-size: 2.57em;
+}
