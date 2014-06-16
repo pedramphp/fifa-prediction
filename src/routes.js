@@ -373,20 +373,8 @@ exports.home = function(req, res){
 	*/
 
 	/*
-	var matchSchema =  new mongoose.Schema({
-		homeScore: Number,
-		awayScore: Number,
-		currentGameMinute: Number,
-		startTime: Date,
-		status: String,
-		venue: String,
-		group: String,
-		awayTeamId: String,
-		homeTeamId: String,
-		id: String,
-		type: String
-	});
-	var MatchModel = mongoose.model('Match', matchSchema);
+
+	//Adding all new Matches.
 
 
 	function render(data){
@@ -423,6 +411,52 @@ exports.home = function(req, res){
 
 	*/
 
+
+	
+/*
+	function render(data){
+
+		data.forEach(function(match){
+			if(match.status !== 'final'){
+				return;
+			}
+
+			MatchModel.findOne({
+				id: match.id,
+				status: 'Pre-game'
+			}).exec(function(err, matchInstance){
+				
+				if(!matchInstance ){
+					return;
+				}
+
+				matchInstance.homeScore	=	match.homeScore;
+				matchInstance.awayScore	=	match.awayScore;
+				matchInstance.status	=	match.status;
+
+				matchInstance.save(function(err){
+					if (err) throw err;
+					console.log('New Team: ' + match.id + ' ' + match.homeScore + ' ' + match.awayScore + ' updated');
+				});
+
+			})
+
+		});
+
+		renderView(data);
+	}
+
+
+	request("http://worldcup.kimonolabs.com/api/matches?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a", function(err, response, body) {
+	  render(JSON.parse(body));
+	});
+
+	
+*/
+
+
+
+
 	function renderView(data){
 
 		res.render('pages/home', {
@@ -435,7 +469,8 @@ exports.home = function(req, res){
 		});		
 	}
 
-
+	
+	//	RENDER PAGE
 	PredictionModel.aggregate({
 		$match:{  
 			score:{ 
@@ -467,4 +502,7 @@ exports.home = function(req, res){
 
 
 	});
+
+
+	
 };
