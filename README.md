@@ -8,28 +8,28 @@ npm install
 grunt
 
 //create matches collection
-create-matches.js
+node create-matches.js
 
 // create teams collection.
-create-teams.js
+node create-teams.js
 
 // create user records first (ONE TIME DEAL)
-create-users.js
+node create-users.js
 
 // create empty prediction list based on users. (ONE TIME DEAL)
-create-empty-prediction.js
+node create-empty-prediction.js
 
 // read users predictions and update databse records. (ONE TIME DEAL)
-insert-user-prediction.js
+node insert-user-prediction.js
 
 // update each user prediction match score based on the current matches.
-update-prediction-scores.js
+node update-prediction-scores.js
 
 // update match table with new scores.
-update-match-scores.js
+node update-match-scores.js
 
 // re-run user prediction match
-update-prediction-scores.js
+node update-prediction-scores.js
 
 
 ```
