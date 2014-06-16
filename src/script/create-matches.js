@@ -1,5 +1,5 @@
 var mongoose =  require('mongoose');
-var MatchModel = require('../model/team');
+var MatchModel = require('../model/match');
 var request = require('request');
 
 
