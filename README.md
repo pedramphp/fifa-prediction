@@ -6,6 +6,32 @@ Fifa Prediction Program
 ```sh
 npm install
 grunt
+
+//create matches collection
+create-matches.js
+
+// create teams collection.
+create-teams.js
+
+// create user records first (ONE TIME DEAL)
+create-users.js
+
+// create empty prediction list based on users. (ONE TIME DEAL)
+create-empty-prediction.js
+
+// read users predictions and update databse records. (ONE TIME DEAL)
+insert-user-prediction.js
+
+// update each user prediction match score based on the current matches.
+update-prediction-scores.js
+
+// update match table with new scores.
+update-match-scores.js
+
+// re-run user prediction match
+update-prediction-scores.js
+
+
 ```
 once you type grunt in command line your chrome web browser will load.
 
