@@ -1,6 +1,22 @@
 {{#extend "stylesheets"}}
 	<link rel="stylesheet" href="/css/page/home.css"/>
 {{/extend}}
+
+
 <div class="cntr">
-{{title}}
+	
+	<div>
+	{{#foreach this.data}}
+	<div>
+		<span>
+		{{this.user.firstname}} {{this.user.lastname}}
+		</span>
+		<span>
+			{{this.totalScore}}
+		</span>
+	</div>
+	{{/foreach}}
+	</div>
+
+
 </div>

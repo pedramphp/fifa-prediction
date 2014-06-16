@@ -2,159 +2,175 @@
 var request = require('request');
 
 var predictionsJSON = require('./predictions.json');
+var usersJSON = require('./users.json');
+
+
+var request = require("request");
+
+
+var mongoose =  require('mongoose');
+
+mongoose.connect('mongodb://localhost/fifa');
+
+
+var teamSchema =  new mongoose.Schema({
+	address: String,
+	draws: Number,
+	foundedYear: Number,
+	goalsAgainst: Number,
+	goalsDiff: String,
+	goalsFor: Number,
+	group: String,
+	groupPoints: Number,
+	groupRank: Number,
+	homeStadium: String,
+	id: String,
+	logo: String,
+	losses: Number,
+	matchesPlayed: Number,
+	name: String,
+	stadiumCapacity: Number,
+	type: String,
+	website: String,
+	wins: Number
+});
+
+var TeamModel = mongoose.model('Team', teamSchema);
+
+
+var userSchema =  new mongoose.Schema({
+	firstname: {
+		type: String,
+		lowercase: true
+	},
+	lastname: {
+		type: String,
+		lowercase: true
+	},
+	email: {
+		type: String,
+		lowercase: true
+	}
+});
+
+var UserModel = mongoose.model('User', userSchema);
+
+var matchSchema =  new mongoose.Schema({
+	homeScore: Number,
+	awayScore: Number,
+	currentGameMinute: Number,
+	startTime: Date,
+	status: String,
+	venue: String,
+	group: String,
+	awayTeamId: String,
+	homeTeamId: String,
+	id: String,
+	type: String
+});
+
+matchSchema.statics.findByTeamNames = function (homeTeamName, awayTeamName, cb) {
+
+	
+
+	var that = this;
+	TeamModel.find({
+		name: {
+			$in: [ awayTeamName, homeTeamName] 
+		}
+	}).exec(function(error, teams){
+		if(error){
+			throw  error;
+		}
+		if(teams.length < 2){
+			console.log('One or Two team are not found', homeTeamName, awayTeamName);
+		}
+		
+		var teamIds = [];
+		var homeTeamId;
+		var awayTeamId;
+
+		
+		teams.forEach(function(team){
+			if(team.name === homeTeamName){
+				homeTeamId = team.id;
+			}else{
+				awayTeamId = team.id;
+			}
+
+		});
+
+		that.findOne({ 
+	  		homeTeamId: homeTeamId, 
+  			awayTeamId: awayTeamId
+  		}, cb);
+
+	});
+}
+
+var MatchModel = mongoose.model('Match', matchSchema);
+
+
+var predictionSchema =  new mongoose.Schema({
+	_user: { type: String, ref: 'User' },
+	_match: { type: String, ref: 'Match' },
+	homeScore: Number,
+	awayScore: Number,
+	score: Number,
+	status: String
+});
+
+
+predictionSchema.statics.findByUserEmailAndMatchId = function(email, matchId, cb){
+	var that = this;
+	UserModel
+		.findOne({
+			email: email
+		})
+		.exec(function(error, user){
+			that.findOne({ 
+				_match: mongoose.Types.ObjectId(matchId),
+				_user: mongoose.Types.ObjectId(user._id)
+			}).populate({
+				path: '_match _user'
+			}).exec(cb);
+		})
+
+};
+
+
+var PredictionModel = mongoose.model('Prediction', predictionSchema);
+	
+
 
 
 exports.home = function(req, res){
 
 
-	var request = require("request");
 
+	//#1: Creating All Users Record - One time job
+	/*
+	var users = usersJSON.users;
 
-	var mongoose =  require('mongoose');
+	users.forEach(function(user){
 
-	mongoose.connect('mongodb://localhost/fifa');
-
-
-	var teamSchema =  new mongoose.Schema({
-		address: String,
-		draws: Number,
-		foundedYear: Number,
-		goalsAgainst: Number,
-		goalsDiff: String,
-		goalsFor: Number,
-		group: String,
-		groupPoints: Number,
-		groupRank: Number,
-		homeStadium: String,
-		id: String,
-		logo: String,
-		losses: Number,
-		matchesPlayed: Number,
-		name: String,
-		stadiumCapacity: Number,
-		type: String,
-		website: String,
-		wins: Number
-	});
-
-	var TeamModel = mongoose.model('Team', teamSchema);
-
-
-	var userSchema =  new mongoose.Schema({
-		firstname: {
-			type: String,
-			lowercase: true
-		},
-		lastname: {
-			type: String,
-			lowercase: true
-		},
-		email: {
-			type: String,
-			lowercase: true
-		}
-	});
-
-	var UserModel = mongoose.model('User', userSchema);
-	
-	var matchSchema =  new mongoose.Schema({
-		homeScore: Number,
-		awayScore: Number,
-		currentGameMinute: Number,
-		startTime: Date,
-		status: String,
-		venue: String,
-		group: String,
-		awayTeamId: String,
-		homeTeamId: String,
-		id: String,
-		type: String
-	});
-
-	matchSchema.statics.findByTeamNames = function (homeTeamName, awayTeamName, cb) {
-
+		var newuser = new UserModel();
 		
-
-		var that = this;
-
-		TeamModel.find({
-			name: {
-				$in: [ awayTeamName, homeTeamName] 
-			}
-		}).exec(function(error, teams){
-			if(error){
-				throw  error;
-			}
-			if(teams.length < 2){
-				console.log('no team found', homeTeamName, awayTeamName);
-			}
-			var teamIds = [];
-			teams.forEach(function(team){
-				teamIds.push(team.id);
-			});
-
-	  		that.findOne({ 
-    	  		homeTeamId: teamIds[0], 
-	  			awayTeamId: teamIds[1]
-	  		}, cb);
-
-		});
-	}
-
-	var MatchModel = mongoose.model('Match', matchSchema);
+		newuser.firstname=user[0];
+		newuser.lastname= user[1];
+		newuser.email= user[2];
 
 
-	var predictionSchema =  new mongoose.Schema({
-		_user: { type: String, ref: 'User' },
-		_match: { type: String, ref: 'Match' },
-		homeScore: Number,
-		awayScore: Number,
-		score: Number
-	});
-
-
-	var PredictionModel = mongoose.model('Prediction', predictionSchema);
-	
-
-	/* INsert user predictions.
-
-	predictionsJSON.users.forEach(function(user){
-		user.matches.forEach(function(match){
-
-			MatchModel.findByTeamNames(match[0], match[2], function(err, selectedMatch){
-				if(!selectedMatch){
-					console.log('FUCK it', selectedMatch);
-					return;
-				}
-				console.log(selectedMatch, "selectedmatch");
-			
-				PredictionModel
-					.findOne({ 
-						_match: mongoose.Types.ObjectId(selectedMatch._id)
-					})
-					.exec(function(err, predictionRecord){
-						if(!predictionRecord){
-							console.log(' it was empty');
-							return;
-						}
-						predictionRecord.homeScore = match[1];
-						predictionRecord.awayScore = match[3];
-						predictionRecord.save(function(err){
-							console.log("saved it", arguments);
-
-						});
-					})
-			});
-
+		newuser.save(function(err){
+			if (err) throw err;
+			console.log('New User: ' + newuser.firstname + ' ' + newuser.lastname + ' created');
 		});
 	});
 	
-
 	*/
-	
 
 
-	// Calculate Empty Prediction Records Per User.
+	// #2 : Create Empty Prediction Records Per User. One time Job
 	/*
 	MatchModel.find().exec(function(err, matches){
 		if (err) throw err;
@@ -174,8 +190,9 @@ exports.home = function(req, res){
 				newPrediction._user = user._id;
 				newPrediction._match = match._id;
 				newPrediction.score = -1;
-				newPrediction.homeScore = 1;
-				newPrediction.awayScore = 2;
+				newPrediction.status = 'pending';
+				newPrediction.homeScore = -1;
+				newPrediction.awayScore = -1;
 
 				newPrediction.save(function(err){
 					if (err) throw err;
@@ -184,19 +201,52 @@ exports.home = function(req, res){
 
 			});
 		});
-	}*/
-	
+	}
+	*/
 
 
+// #3 -Insert user predictions to DB. ONE TIME ONLY
+/*
+	predictionsJSON.users.forEach(function(user){
+		user.matches.forEach(function(match){
+			var homeTeam = match[0];
+			var awayTeam = match[2];
+			MatchModel.findByTeamNames(homeTeam, awayTeam, function(err, selectedMatch){
+				if(!selectedMatch){
+					console.log('Cant find match based on teams', homeTeam, awayTeam);
+					return;
+				}
+			
+				PredictionModel.findByUserEmailAndMatchId(user.email, selectedMatch._id, function(err, predictionRecord){
+					
+						if(!predictionRecord){
+							console.log(' it was empty');
+							return;
+						}
+						predictionRecord.homeScore = match[1];
+						predictionRecord.awayScore = match[3];
+						predictionRecord.save(function(err){
+							console.log("saved it", match , " for ", user.email);
+
+						});
+					})
+			});
+
+		});
+	});
+	*/
 	
-	// Update Prediction Scores based On matches
+	
+// #4: Update Prediction Scores based On matches - checks the DB - RUN THIS EVERY DAY.
 /*
 	var match,
 		matchScoreDiff,
 		predictioncoreDiff;
 
 	PredictionModel
-		.find()
+		.find({
+		  	status: 'pending'
+		})
 		.populate({
 		  path: '_match',
 		  match: {
@@ -238,6 +288,9 @@ exports.home = function(req, res){
 					//wrong winner
 					prediction.score = 0;
 				}
+				
+				prediction.status = 'done';
+
 				prediction.save(function(err){
 					if(err){
 						throw err;
@@ -246,34 +299,8 @@ exports.home = function(req, res){
 				console.log(prediction);
 			});
 		});
-
 */
 
-
-
-/*
-	var users = [];
-	users.push({
-		firstname: 'mahdi',
-		lastname: 'pedram',
-		email: 'pedramphp@gmail.com'
-	});
-
-	users.forEach(function(user){
-
-		var newuser = new UserModel();
-		
-		newuser.firstname=user.firstname;
-		newuser.lastname= user.lastname;
-		newuser.email= user.email;
-
-
-		newuser.save(function(err){
-			if (err) throw err;
-			console.log('New User: ' + newuser.firstname + ' ' + newuser.lastname + ' created');
-		});
-	});
-	*/
 
 
 
@@ -398,23 +425,46 @@ exports.home = function(req, res){
 
 	function renderView(data){
 
-
-
 		res.render('pages/home', {
 	        isDev: process.env.NODE_ENV === "development",
 			title: "About Me",
-			data: {
-				title: "this is a title",
-				data: data
-			},
+			data: data,
 			helpers:{
 	        },
 	        layout: "main"
 		});		
 	}
 
-	renderView({});
+
+	PredictionModel.aggregate({
+		$match:{  
+			score:{ 
+				$gt: -1 
+			}
+		}
+	}).group({
+		_id: "$_user",
+		totalScore:{
+			$sum: "$score"
+		}		
+	}).sort({
+		totalScore: -1
+	}).exec(function(error, results){
+		var len = results.length;
+		results.forEach(function(record, index){
+			UserModel
+				.findOne({
+					_id: mongoose.Types.ObjectId( record._id )
+				})
+				.exec(function(error, user){
+					record.user = user;
+					if(len - 1 === index){
+						renderView(results);
+					}
+				});
+				
+		});
 
 
-
+	});
 };
