@@ -6,110 +6,12 @@ var usersJSON = require('./users.json');
 
 
 var request = require("request");
-
-
 var mongoose =  require('mongoose');
 
 mongoose.connect('mongodb://localhost/fifa');
 
-
-var teamSchema =  new mongoose.Schema({
-	address: String,
-	draws: Number,
-	foundedYear: Number,
-	goalsAgainst: Number,
-	goalsDiff: String,
-	goalsFor: Number,
-	group: String,
-	groupPoints: Number,
-	groupRank: Number,
-	homeStadium: String,
-	id: String,
-	logo: String,
-	losses: Number,
-	matchesPlayed: Number,
-	name: String,
-	stadiumCapacity: Number,
-	type: String,
-	website: String,
-	wins: Number
-});
-
-var TeamModel = mongoose.model('Team', teamSchema);
-
-
-var userSchema =  new mongoose.Schema({
-	firstname: {
-		type: String,
-		lowercase: true
-	},
-	lastname: {
-		type: String,
-		lowercase: true
-	},
-	email: {
-		type: String,
-		lowercase: true
-	}
-});
-
-var UserModel = mongoose.model('User', userSchema);
-
-var matchSchema =  new mongoose.Schema({
-	homeScore: Number,
-	awayScore: Number,
-	currentGameMinute: Number,
-	startTime: Date,
-	status: String,
-	venue: String,
-	group: String,
-	awayTeamId: String,
-	homeTeamId: String,
-	id: String,
-	type: String
-});
-
-matchSchema.statics.findByTeamNames = function (homeTeamName, awayTeamName, cb) {
-
-	
-
-	var that = this;
-	TeamModel.find({
-		name: {
-			$in: [ awayTeamName, homeTeamName] 
-		}
-	}).exec(function(error, teams){
-		if(error){
-			throw  error;
-		}
-		if(teams.length < 2){
-			console.log('One or Two team are not found', homeTeamName, awayTeamName);
-		}
-		
-		var teamIds = [];
-		var homeTeamId;
-		var awayTeamId;
-
-		
-		teams.forEach(function(team){
-			if(team.name === homeTeamName){
-				homeTeamId = team.id;
-			}else{
-				awayTeamId = team.id;
-			}
-
-		});
-
-		that.findOne({ 
-	  		homeTeamId: homeTeamId, 
-  			awayTeamId: awayTeamId
-  		}, cb);
-
-	});
-}
-
-var MatchModel = mongoose.model('Match', matchSchema);
-
+var TeamModel = require('./model/team');
+var UserModel = require('./model/user');
 
 var predictionSchema =  new mongoose.Schema({
 	_user: { type: String, ref: 'User' },
@@ -485,6 +387,11 @@ exports.home = function(req, res){
 	}).sort({
 		totalScore: -1
 	}).exec(function(error, results){
+
+		if(!results){
+			renderView(results);
+		}
+
 		var len = results.length;
 		results.forEach(function(record, index){
 			UserModel
