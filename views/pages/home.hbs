@@ -1,22 +1,43 @@
 {{#extend "stylesheets"}}
-	<link rel="stylesheet" href="/css/page/home.css"/>
+<link rel="stylesheet" href="/css/page/home.css"/>
 {{/extend}}
 
 
-<div class="cntr">
-	
-	<div>
-	{{#foreach this.data}}
-	<div>
-		<span>
-		{{this.user.firstname}} {{this.user.lastname}}
-		</span>
-		<span>
-			{{this.totalScore}}
-		</span>
-	</div>
-	{{/foreach}}
-	</div>
+<div class="bg"></div>
+<div class="content">
+	<header class="main-header clearfix">
+		<div class="wrapper">
 
+			<h1>FIFA WORLD CUP 2014<br>PREDICTION</h1>
+			<img src="/images/logo-wc2014.png" alt="" />
+		</div>
+	</header>
+	<div class="main-content">
+		<div class="wrapper">
+			<h4>Updated on <time>June 17, 2014 - 23:32PM</time></h4>
+			<div class="list-container clearfix">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					<thead>
+						<tr>
+							<th width="5%"></th>
+							<th width="70%">Name</th>
+							<th width="15%px" class="points">Points</th>
+							<th width="10%">Award</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#foreach this.data}}
+						<tr>
+							<td>1</td>
+							<td>{{this.user.firstname}} {{this.user.lastname}}</td>
+							<td class="points">{{this.totalScore}}</td>
+							<td>$800</td>
+						</tr>
+						{{/foreach}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 </div>

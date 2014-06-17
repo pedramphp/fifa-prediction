@@ -107,7 +107,7 @@
 			["Algeria",	0	,"Russia",	1]
 		]
 	},{
-		"email": "bmaysam@gmail.com",
+		"email": "bmaysam@yahoo.com",
 		"matches":[
 			["Brazil", 2, "Croatia", 1],
 			["Mexico", 2, "Cameroon", 1],
@@ -157,6 +157,64 @@
 			["Portugal",	1	,"Ghana",	0],
 			["Korea Republic",	0	,"Belgium",	1],
 			["Algeria",	1	,"Russia",	1]
+		]
+	}
+	,{
+		"email": "",
+		"matches":[
+			["Brazil", 1, "Croatia", 0],
+			["Mexico", 1, "Cameroon", 0],
+			["Spain", 1	, "Netherlands", 0],
+			["Chile",	1	,"Australia",	0],
+			["Colombia",1	,"Greece",	0],
+			["Côte d'Ivoire",0	,"Japan",	1],
+			["Uruguay",	1	,"Costa Rica",	0],
+			["England",	0	,"Italy",	1],
+			["Switzerland",	1	,"Ecuador",	0],
+			["France",	1	,"Honduras",	0],
+			["Argentina",	1	,"Bosnia-Herzegovina",	0],
+			["Iran",	0	,"Nigeria",	     1],
+			["Germany",	1	,"Portugal",	0],
+			["Ghana",	0	,"United States",	1],
+			["Belgium",	1	,"Algeria",	0],
+			["Russia",	1	,"Korea Republic",	0],
+			["Brazil",	1	,"Mexico",	0],
+			["Cameroon", 0,"Croatia",	1],
+			["Spain",	1, "Chile",	0],
+			["Australia",	0,"Netherlands",	1],
+			["Colombia",	1 	,"Côte d'Ivoire",	0],
+			["Japan",	1	,"Greece",	0],
+
+			["Uruguay",	0	,"England",	1],
+			["Italy",	1	,"Costa Rica",	0],
+			["Switzerland",	0	,"France",	1],
+			["Honduras",	0	,"Ecuador",	1],
+			["Argentina",	1	,"Iran",	0],
+			["Nigeria",	1	,"Bosnia-Herzegovina",	0],
+			["Germany",	1	,"Ghana",	0],
+			["United States",	0	,"Portugal", 1],
+			["Belgium",	1	,"Russia",	0],
+			["Korea Republic",	1	,"Algeria",	0],
+
+			["Cameroon",	0	,"Brazil",	1],
+			["Croatia",	0	,"Mexico",	1],
+			["Australia",	0	,"Spain",	1],
+
+			["Netherlands",	1	,"Chile", 0],
+			["Japan",	0	,"Colombia",	1],
+			["Greece",	1	,"Côte d'Ivoire",	0],
+			["Italy",	1	,"Uruguay",	0],
+
+			["Costa Rica",	0	,"England",	1],
+			["Honduras",	0	,"Switzerland",	1],
+			["Ecuador",	0	,"France",	1],
+			["Nigeria",	0	,"Argentina",	1],
+
+			["Bosnia-Herzegovina",	1	,"Iran", 0],
+			["United States",	0	,"Germany",	1],
+			["Portugal",	1	,"Ghana",	0],
+			["Korea Republic",	0	,"Belgium",	1],
+			["Algeria",	0	,"Russia",	1]
 		]
 	}
 
