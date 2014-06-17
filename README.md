@@ -7,14 +7,15 @@ Fifa Prediction Program
 npm install
 grunt
 
-//create matches collection
-node create-matches.js
-
-// create teams collection.
-node create-teams.js
-
 // create user records first (ONE TIME DEAL)
 node create-users.js
+
+// create teams collection. (ONE TIME DEAL)
+node create-teams.js
+
+//create matches collection (ONE TIME DEAL)
+node create-matches.js
+
 
 // create empty prediction list based on users. (ONE TIME DEAL)
 node create-empty-prediction.js

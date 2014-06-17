@@ -1,128 +1,129 @@
 "use strict";
 var express = require('express'),
-http =  require('http'),
-app = express(),
-exphbs  = require('express3-handlebars'),
-hbs,
-VIEW_EXT_NAME = ".hbs",
-path = require('path'),
-pubDir = path.join(__dirname, 'public'),
-routes = require("./src/routes"),
-moment = require('moment');
+    http =  require('http'),
+    app = express(),
+    exphbs  = require('express3-handlebars'),
+    hbs,
+    VIEW_EXT_NAME = ".hbs",
+    path = require('path'),
+    pubDir = path.join(__dirname, 'public'),
+    routes = require("./src/routes"),
+    moment = require('moment');
 
 var blocks = [];
 hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
     helpers: {
         extend: function (name, context){
-         var block = blocks[name];
-         if (!block) {
-            block = blocks[name] = [];
-        }
+           var block = blocks[name];
+            if (!block) {
+                block = blocks[name] = [];
+           }
 
            block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
-       },
+        },
 
-       block: function (name){
-        var val = (blocks[name] || []).join('\n');
+        block: function (name){
+            var val = (blocks[name] || []).join('\n');
 
            // clear the block
            blocks[name] = [];
            return val;
-       },
+        },
 
-       ifStringEqual: function(firstText, secondText, block){
-        
-          if(firstText === secondText) {
-            return block.fn(this);
+        ifStringEqual: function(firstText, secondText, block){
+            
+              if(firstText === secondText) {
+                return block.fn(this);
+              }
+        },
+
+        fromNow: function(timestamp){
+            return moment(timestamp).fromNow();
+        },
+
+        fromNowShort: function(timestamp){
+            return moment(timestamp).fromNow(true);
+        },
+
+        timeHourMin: function(timestamp){
+            return moment(timestamp).format("h:mm a");
+        },
+
+        ifCond: function (v1, operator, v2, options) {
+
+            switch (operator) {
+                case '==':
+                    return (v1 == v2) ? options.fn(this) : options.inverse(this);
+                case '===':
+                    return (v1 === v2) ? options.fn(this) : options.inverse(this);
+                case '<':
+                    return (v1 < v2) ? options.fn(this) : options.inverse(this);
+                case '<=':
+                    return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+                case '>':
+                    return (v1 > v2) ? options.fn(this) : options.inverse(this);
+                case '>=':
+                    return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+                case '&&':
+                    return (v1 && v2) ? options.fn(this) : options.inverse(this);
+                case '||':
+                    return (v1 || v2) ? options.fn(this) : options.inverse(this);
+                default:
+                    return options.inverse(this);
+            }
+        },
+
+        foreach: function(arr, options) {
+            if(options.inverse && !arr.length)
+                return options.inverse(this);
+
+            return arr.map(function(item,index) {
+                item.$index = index;
+                item.$first = index === 0;
+                item.$last  = index === arr.length-1;
+                return options.fn(item);
+            }).join('');
+        },
+
+        foreachSlice: function(arr, action, quantity, options) {
+            if(options.inverse && !arr.length)
+                return options.inverse(this);
+            
+            if( action === "last" && quantity){
+                arr = arr.slice(-1 * quantity);
+            }
+
+            return arr.map(function(item,index) {
+                item.$index = index;
+                item.$first = index === 0;
+                item.$last  = index === arr.length-1;
+                return options.fn(item);
+            }).join('');
+        },
+
+       json: function(context) {
+            return JSON.stringify(context);
+        },
+
+        math: function(lvalue, operator, rvalue, options) {
+            lvalue = parseFloat(lvalue);
+            rvalue = parseFloat(rvalue);
+                
+            return {
+                "+": lvalue + rvalue,
+                "-": lvalue - rvalue,
+                "*": lvalue * rvalue,
+                "/": lvalue / rvalue,
+                "%": lvalue % rvalue
+            }[operator];
         }
     },
-
-    fromNow: function(timestamp){
-        return moment(timestamp).fromNow();
-    },
-
-    fromNowShort: function(timestamp){
-        return moment(timestamp).fromNow(true);
-    },
-
-    timeHourMin: function(timestamp){
-        return moment(timestamp).format("h:mm a");
-    },
-
-    ifCond: function (v1, operator, v2, options) {
-
-        switch (operator) {
-            case '==':
-            return (v1 == v2) ? options.fn(this) : options.inverse(this);
-            case '===':
-            return (v1 === v2) ? options.fn(this) : options.inverse(this);
-            case '<':
-            return (v1 < v2) ? options.fn(this) : options.inverse(this);
-            case '<=':
-            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-            case '>':
-            return (v1 > v2) ? options.fn(this) : options.inverse(this);
-            case '>=':
-            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-            case '&&':
-            return (v1 && v2) ? options.fn(this) : options.inverse(this);
-            case '||':
-            return (v1 || v2) ? options.fn(this) : options.inverse(this);
-            default:
-            return options.inverse(this);
-        }
-    },
-
-    foreach: function(arr, options) {
-        if(options.inverse && !arr.length)
-            return options.inverse(this);
-
-        return arr.map(function(item,index) {
-            item.$index = index;
-            item.$first = index === 0;
-            item.$last  = index === arr.length-1;
-            return options.fn(item);
-        }).join('');
-    },
-
-    foreachSlice: function(arr, action, quantity, options) {
-        if(options.inverse && !arr.length)
-            return options.inverse(this);
-        
-        if( action === "last" && quantity){
-            arr = arr.slice(-1 * quantity);
-        }
-
-        return arr.map(function(item,index) {
-            item.$index = index;
-            item.$first = index === 0;
-            item.$last  = index === arr.length-1;
-            return options.fn(item);
-        }).join('');
-    },
-
-    json: function(context) {
-        return JSON.stringify(context);
-    },
-    math: function(lvalue, operator, rvalue, options) {
-     lvalue = parseFloat(lvalue);
-     rvalue = parseFloat(rvalue);
-     
-     return {
-         "+": lvalue + rvalue,
-         "-": lvalue - rvalue,
-         "*": lvalue * rvalue,
-         "/": lvalue / rvalue,
-         "%": lvalue % rvalue
-     }[operator];
- }
-},
-defaultLayout: 'main',
+    defaultLayout: 'main',
     // Uses multiple partials dirs, templates in "shared/templates/" are shared
     // with the client-side of the app (see below).
     partialsDir: [
-    'views/partials/'
+        'views/partials/'
     ],
     extname: VIEW_EXT_NAME
 });
@@ -197,4 +198,3 @@ http.createServer(app).listen(app.get('port'),
   function(){
     console.log("Express server listening on port " + app.get('port'));
 });
-

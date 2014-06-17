@@ -16,7 +16,7 @@ npm-debug.log
 node_modules
 
 public/production
-public/uglify
+public/js-uglify
 public/css
-public/js-uglify/
+public/uglify/
 public/cssmin/

@@ -24,7 +24,7 @@ function process(data){
 
 		newMatch.save(function(err){
 			if (err) throw err;
-			console.log('New Team: ' + match.id + ' created');
+			console.log('New Match: ' + match.id + ' created');
 		});
 
 	});
