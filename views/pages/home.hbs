@@ -28,7 +28,7 @@
 					<tbody>
 						{{#foreach this.data}}
 						<tr>
-							<td>1</td>
+							<td>{{math this.$index "+" 1}}</td>
 							<td>{{this.user.firstname}} {{this.user.lastname}}</td>
 							<td class="points">{{this.totalScore}}</td>
 							<td>$800</td>
