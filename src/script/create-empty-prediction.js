@@ -2,8 +2,7 @@ var mongoose =  require('mongoose');
 var MatchModel = require('../model/match');
 var UserModel = require('../model/user');
 var PredictionModel = require('../model/prediction');
-
-mongoose.connect('mongodb://localhost/fifa');
+var db = require('../db');
 
 
 // #2 : Create Empty Prediction Records Per User. One time Job

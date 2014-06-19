@@ -2,8 +2,7 @@ var mongoose =  require('mongoose');
 var MatchModel = require('../model/match');
 var request = require('request');
 
-
-mongoose.connect('mongodb://localhost/fifa');
+var db = require('../db');
 
 function process(data){
 

@@ -5,7 +5,7 @@ var PredictionModel = require('../model/prediction');
 
 var predictionsJSON = require('../predictions.json');
 
-mongoose.connect('mongodb://localhost/fifa');
+var db = require('../db');
 
 
 predictionsJSON.users.forEach(function(user){

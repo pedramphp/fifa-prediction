@@ -6,8 +6,7 @@ var users = usersJSON.users;
 
 
 //#1: Creating All Users Record - One time job
-
-mongoose.connect('mongodb://localhost/fifa');
+var db = require('../db');
 
 users.forEach(function(user){
 

@@ -1,8 +1,7 @@
 var mongoose =  require('mongoose');
 var TeamModel = require('../model/team');
 var request = require('request');
-
-mongoose.connect('mongodb://localhost/fifa');
+var db = require('../db');
 
 function process(data){
 	data.forEach(function(team){
