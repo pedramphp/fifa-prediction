@@ -7,7 +7,8 @@ var usersJSON = require('./users.json');
 
 var request = require("request");
 var mongoose =  require('mongoose')
-mongoose.connect('mongodb://localhost/fifa');
+
+var db = require('./db');
 
 var TeamModel = require('./model/team');
 var UserModel = require('./model/user');
