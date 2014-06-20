@@ -22,6 +22,20 @@ var teamSchema =  new mongoose.Schema({
 	wins: Number
 });
 
+
+teamSchema.statics.findTeamsById = function(teamIds, cb){
+	
+	this.find({ 
+		id:{
+			$in: teamIds
+		}
+	}).exec(cb);
+
+};
+
+
+
 var TeamModel = mongoose.model('Team', teamSchema);
+
 
 module.exports = TeamModel;

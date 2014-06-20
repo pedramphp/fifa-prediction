@@ -6,27 +6,74 @@ var usersJSON = require('./users.json');
 
 
 var request = require("request");
-var mongoose =  require('mongoose')
+var mongoose =  require('mongoose');
+var _ = require('underscore');
 
 var db = require('./db');
 
 var TeamModel = require('./model/team');
 var UserModel = require('./model/user');
 var PredictionModel = require('./model/prediction');
+var MatchModel = require('./model/match');
+
+exports.userMatch = function(req, res){
+	function renderView(data){
+
+		res.render('pages/user-matches', {
+	        isDev: process.env.NODE_ENV === "development",
+			title: "About Me",
+			data: data,
+			helpers:{
+				getTeamName: function(teamId){
+					return this.teams.filter(function(team){
+						return team.id === teamId;
+					})[0].name;
+				},
+
+				getTeamPic: function(teamId){
+					return this.teams.filter(function(team){
+						return team.id === teamId;
+					})[0].logo;
+				}
+	        },
+	        layout: "main"
+		});
+
+	}
+
+	var userId = req.param('userId');
+
+	PredictionModel.find({ 
+		_user: mongoose.Types.ObjectId(userId),
+		score: { 
+			$ne: -1 
+		}
+	}).populate({
+		path: '_match _user'
+	}).lean().exec(function(error, predictions){
+		var p, ps = [];
+		var len = predictions.length;
+		predictions.forEach(function(prediction, index){
+			TeamModel.findTeamsById([prediction._match.homeTeamId,prediction._match.awayTeamId], function(err, teams){
+				prediction.teams = teams;
+				
+				if(len - 1 === index){
+
+					renderView(predictions);
+				}
+			});
+		});
+	});
 
 
+
+
+
+//	renderView({});
+
+};
 
 exports.home = function(req, res){
-
-
-
-// #1: Creating All Users Record - One time job	
-// #2 : Create Empty Prediction Records Per User. One time Job	
-// #3 -Insert user predictions to DB. ONE TIME ONLY
-// #4: Update Prediction Scores based On matches - checks the DB - RUN THIS EVERY DAY.
-
-
-
 
 	function renderView(data){
 
@@ -39,8 +86,6 @@ exports.home = function(req, res){
 	        layout: "main"
 		});		
 	}
-
-	
 	//	RENDER PAGE
 	PredictionModel.aggregate({
 		$match:{  
@@ -75,9 +120,5 @@ exports.home = function(req, res){
 				});
 				
 		});
-
-
 	});
-
-
 };
