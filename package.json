@@ -13,7 +13,8 @@
     "commander": "^2.2.0",
     "request": "~2.33.0",
     "grunt": "~0.4.2",
-    "grunt-cli": "^0.1.13"
+    "grunt-cli": "^0.1.13",
+    "underscore": "^1.6.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
