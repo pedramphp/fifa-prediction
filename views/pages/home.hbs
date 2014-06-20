@@ -43,3 +43,13 @@
 	</div>
 
 </div>
+{{#extend "js"}}
+<script>
+  $(document).ready(function(){
+    $(".prediction-trigger").on('click', function(e){
+    e.preventDefault();
+      $(this).parents('tr').next('.row-prediction').toggle();
+    })
+  });
+</script>
+{{/extend}}
