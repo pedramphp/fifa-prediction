@@ -184,6 +184,8 @@ function exposeTemplates(req, res, next) {
 
 // set your route
 app.get('/', exposeTemplates, routes.home);
+app.get('/user/:userId', exposeTemplates, routes.userMatch);
+
 
 
 if(!process.env.NODE_ENV){
