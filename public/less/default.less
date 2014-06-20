@@ -87,9 +87,11 @@ body{
     padding: 20px 0;
 }
 
-.main-content h4{
+.main-content h1,
+.main-content h4,{
     font-weight: normal;
     text-align: center;
+    text-transform: capitalize;
 }
 
 .list-container{
@@ -97,27 +99,41 @@ body{
 	margin: 50px auto;
 }
 
-.list-container table th{
+.table-points th{
 	color: #bdbdbd;
     font-weight: normal;
     text-align: left;
     font-size: 16px;
 }
 
-.list-container table td{
+.table-points td{
     font-size: 25px;
     border-bottom: 1px solid #303030;
     padding: 5px 0;
     text-transform: capitalize;
 }
 
-.list-container table td a{
+.table-points td a{
     text-decoration: none;
     color: #fff;
 }
 
-.list-container table .points{
+.table-points .points{
     text-align: center;
+}
+
+.table-predictions td{
+    border-color: #303030;
+}
+
+.table-predictions img{
+    width: 50px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.row-prediction{
+    background: rgba(0,0,0,.5);
 }
 
 .hidden {
