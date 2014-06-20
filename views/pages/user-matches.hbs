@@ -1,0 +1,60 @@
+{{#extend "stylesheets"}}
+<link rel="stylesheet" href="/css/page/home.css"/>
+{{/extend}}
+<style type="text/css">
+	
+table{
+
+}
+img{
+	width: 50px;
+
+}
+
+</style>
+<div style='color: #333'>
+	<h1>{{this.data.0._user.firstname}} {{this.data.0._user.lastname}}</h1>
+	<table border=1 cellpadding="20">
+	{{#foreach this.data}}
+		<tr>
+			<td>
+			result
+			</td>
+			<td>
+				<img src = '{{getTeamPic this._match.homeTeamId}}' />{{getTeamName this._match.homeTeamId}}
+			</td>
+			<td>
+				{{this._match.homeScore}} 
+			</td>
+			<td>
+				<img src = '{{getTeamPic this._match.awayTeamId}}' />{{getTeamName this._match.awayTeamId}}
+			</td>
+			<td>
+				{{this._match.awayScore}}
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+			prediction
+			</td>
+			<td>
+				<img src = '{{getTeamPic this._match.homeTeamId}}' />{{getTeamName this._match.homeTeamId}}
+			</td>
+			<td>
+				{{this.homeScore}} 
+			</td>
+			<td>
+				<img src = '{{getTeamPic this._match.awayTeamId}}' />{{getTeamName this._match.awayTeamId}}
+			</td>
+			<td>
+				{{this.awayScore}}
+			</td>
+			<td>
+			 Score: {{this.score}}
+			</td>
+		</tr>
+	{{/foreach}}
+	<table>
+
+</div>

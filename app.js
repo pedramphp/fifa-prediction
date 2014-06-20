@@ -184,17 +184,26 @@ function exposeTemplates(req, res, next) {
 
 // set your route
 app.get('/', exposeTemplates, routes.home);
+app.get('/user/:userId', exposeTemplates, routes.userMatch);
+
 
 
 if(!process.env.NODE_ENV){
     process.env.NODE_ENV = "development";
 }
 
+
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+ 
+
 if(!app.get('port')){
-	app.set('port', process.env.PORT || 3000);
+	app.set('port', server_port);
 }
 
-http.createServer(app).listen(app.get('port'),
-  function(){
-    console.log("Express server listening on port " + app.get('port'));
-});
+http.createServer(app)
+    .listen(app.get('port'),
+        server_ip_address,
+        function(){
+            console.log("Express server listening on port " + app.get('port') + ' ip '+ server_ip_address);
+        });
