@@ -126,13 +126,55 @@ body{
     border-color: #303030;
 }
 
+.table-predictions td.col-hometeam,
+.table-predictions td.col-awayteam{
+    width: 220px;
+}
+
+.table-predictions td.col-matchscore{
+    text-align: center;
+    font-size: 25px;
+}
+
+.table-predictions td.col-awayteam{
+    text-align: right;
+}
+
+.table-predictions figure{
+    display: inline-block;
+}
+
 .table-predictions img{
     width: 50px;
     vertical-align: middle;
-    margin-right: 5px;
+}
+
+.table-predictions td.col-awayteam img{
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+.table-predictions td.col-score{
+    text-align: center;
+    font-size: 18px;
+}
+
+.table-predictions td.col-score a{
+    color: #fff;
+    font-size: 14px;
+}
+
+.table-predictions td.col-score a:hover{
+    opacity: .8;
 }
 
 .row-prediction{
+    display: none;
+    background: rgba(0,0,0,.5);
+}
+
+.row-prediction.show{
+    display: table-row;
     background: rgba(0,0,0,.5);
 }
 
