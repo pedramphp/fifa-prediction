@@ -12,16 +12,16 @@ predictionsJSON.users.forEach(function(user){
 	user.matches.forEach(function(match){
 		var homeTeam = match[0];
 		var awayTeam = match[2];
+
 		MatchModel.findByTeamNames(homeTeam, awayTeam, function(err, selectedMatch){
 			if(!selectedMatch){
 				console.log('Cant find match based on teams', homeTeam, awayTeam);
 				return;
 			}
-		
 			PredictionModel.findByUserEmailAndMatchId(user.email, selectedMatch._id, function(err, predictionRecord){
 				
 					if(!predictionRecord){
-						console.log(' it was empty');
+						console.log(user.email, ' no prediction record for', homeTeam, awayTeam, selectedMatch._id );
 						return;
 					}
 					predictionRecord.homeScore = match[1];

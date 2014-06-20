@@ -37,6 +37,22 @@ node update-prediction-scores.js
 once you type grunt in command line your chrome web browser will load.
 
 
+fifa2 @ http://fifa2-mexoinc.rhcloud.com/ (uuid: 53a32c064382ec676600054b)
+--------------------------------------------------------------------------
+  Domain:          mexoinc
+  Created:         11:29 AM
+  Gears:           1 (defaults to small)
+  Git URL:         ssh://53a32c064382ec676600054b@fifa2-mexoinc.rhcloud.com/~/git/fifa2.git/
+  Initial Git URL: http://github.com/pedramphp/fifa-prediction.git
+  SSH:             53a32c064382ec676600054b@fifa2-mexoinc.rhcloud.com
+  Deployment:      auto (on git push)
+
+  nodejs-0.10 (Node.js 0.10)
+  --------------------------
+    Gears: 1 small
+
+    
+
 #API
 ------------------
 

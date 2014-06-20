@@ -15,9 +15,13 @@ predictionSchema.statics.findByUserEmailAndMatchId = function(email, matchId, cb
 	var that = this;
 	UserModel
 		.findOne({
-			email: email
+			email: email.toLowerCase()
 		})
 		.exec(function(error, user){
+			if(!user){
+				cb();
+				return;
+			}
 			that.findOne({ 
 				_match: mongoose.Types.ObjectId(matchId),
 				_user: mongoose.Types.ObjectId(user._id)
