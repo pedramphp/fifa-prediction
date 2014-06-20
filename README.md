@@ -7,6 +7,8 @@ Fifa Prediction Program
 npm install
 grunt
 
+node clean-collections.js
+
 // create user records first (ONE TIME DEAL)
 node create-users.js
 
@@ -51,7 +53,7 @@ fifa2 @ http://fifa2-mexoinc.rhcloud.com/ (uuid: 53a32c064382ec676600054b)
   --------------------------
     Gears: 1 small
 
-    
+
 
 #API
 ------------------
