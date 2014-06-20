@@ -29,7 +29,11 @@
 						{{#foreach this.data}}
 						<tr>
 							<td>{{math this.$index "+" 1}}</td>
-							<td>{{this.user.firstname}} {{this.user.lastname}}</td>
+							<td>
+								<a href='user/{{this._id}}'> 
+									{{this.user.firstname}} {{this.user.lastname}}
+								</a>
+							</td>
 							<td class="points">{{this.totalScore}}</td>
 							<td>$800</td>
 						</tr>
