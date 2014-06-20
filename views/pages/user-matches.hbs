@@ -13,24 +13,27 @@
 	<div class="main-content">
 		<div class="wrapper">
 			<h1>{{this.data.0._user.firstname}} {{this.data.0._user.lastname}}</h1>
-			<div class="list-container clearfix">
-				<table border=1 cellpadding="20" class="table-predictions">
+			<div class="list-container clearfix" style="width: 800px">
+				<table border=1 cellpadding="20" class="table-predictions" width="100%">
 					{{#foreach this.data}}
 					<tr>
 						<td>
-							Result
+							Match Result
 						</td>
-						<td>
-							<img src = '{{getTeamPic this._match.homeTeamId}}' />{{getTeamName this._match.homeTeamId}}
+						<td class="col-hometeam">
+							<figure><img src = '{{getTeamPic this._match.homeTeamId}}' /></figure>
+							<span>{{getTeamName this._match.homeTeamId}}</span>
 						</td>
-						<td>
-							{{this._match.homeScore}} 
+						<td class="col-matchscore">
+							{{this._match.homeScore}} - {{this._match.awayScore}}
 						</td>
-						<td>
-							<img src = '{{getTeamPic this._match.awayTeamId}}' />{{getTeamName this._match.awayTeamId}}
+						<td class="col-awayteam">
+							<span>{{getTeamName this._match.awayTeamId}}</span>
+							<figure><img src = '{{getTeamPic this._match.awayTeamId}}' /></figure>
 						</td>
-						<td>
-							{{this._match.awayScore}}
+						<td class="col-score">
+							Score: {{this.score}} <br/>
+							<a href="#" class="prediction-trigger">Prediction</a>
 						</td>
 
 					</tr>
@@ -38,21 +41,18 @@
 						<td>
 							Prediction
 						</td>
-						<td>
-							<img src = '{{getTeamPic this._match.homeTeamId}}' />{{getTeamName this._match.homeTeamId}}
+						<td class="col-hometeam">
+							<figure><img src = '{{getTeamPic this._match.homeTeamId}}' /></figure>
+							<span>{{getTeamName this._match.homeTeamId}}</span>
 						</td>
-						<td>
-							{{this.homeScore}} 
+						<td class="col-matchscore">
+							{{this.homeScore}} - {{this.awayScore}}
 						</td>
-						<td>
-							<img src = '{{getTeamPic this._match.awayTeamId}}' />{{getTeamName this._match.awayTeamId}}
+						<td class="col-awayteam">
+							<span>{{getTeamName this._match.awayTeamId}}</span>
+							<figure><img src = '{{getTeamPic this._match.awayTeamId}}' /></figure>
 						</td>
-						<td>
-							{{this.awayScore}}
-						</td>
-						<td>
-							Score: {{this.score}}
-						</td>
+						<td></td>
 					</tr>
 					{{/foreach}}
 				</table>
