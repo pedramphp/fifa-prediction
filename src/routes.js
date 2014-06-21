@@ -35,6 +35,22 @@ exports.userMatch = function(req, res){
 					return this.teams.filter(function(team){
 						return team.id === teamId;
 					})[0].logo;
+				},
+
+				getMatchScore: function(score){
+					return score >= 0 ? score : '-'; 
+				},
+
+				getScoreType: function(score){
+					var types ={
+						'-1': 'not-started',
+						'0': 'wrong',
+						'1': 'correct-win',
+						'3': 'correct-win-goal-diff',
+						'5': 'correct'
+					}
+					return types[score];
+
 				}
 	        },
 	        layout: "main"
@@ -45,13 +61,22 @@ exports.userMatch = function(req, res){
 	var userId = req.param('userId');
 
 	PredictionModel.find({ 
-		_user: mongoose.Types.ObjectId(userId),
-		score: { 
-			$ne: -1 
-		}
+		_user: mongoose.Types.ObjectId(userId)
 	}).populate({
 		path: '_match _user'
 	}).lean().exec(function(error, predictions){
+
+		predictions.sort(function(a, b){
+
+			if (new Date(a._match.startTime) > new Date(b._match.startTime))
+		      return 1;
+
+			if (new Date(a._match.startTime) < new Date(b._match.startTime))
+			 		      return -1;
+		    // a must be equal to b
+		    return 0;
+		});
+
 		var p, ps = [];
 		var len = predictions.length;
 		predictions.forEach(function(prediction, index){

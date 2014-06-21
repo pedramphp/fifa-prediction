@@ -25,39 +25,23 @@
 							<span>{{getTeamName this._match.homeTeamId}}</span>
 						</td>
 						<td class="col-matchscore">
-							{{this._match.homeScore}} - {{this._match.awayScore}}
+							{{getMatchScore this._match.homeScore}} - {{getMatchScore this._match.awayScore}}
 						</td>
 						<td class="col-awayteam">
 							<span>{{getTeamName this._match.awayTeamId}}</span>
 							<figure><img src = '{{getTeamPic this._match.awayTeamId}}' /></figure>
 						</td>
-						<td class="col-score">
-							Score: {{this.score}} <br/>
-							<a href="#" class="prediction-trigger">Prediction</a>
+						<td class="col-score score-{{getScoreType this.score}}">
+							Score: {{getMatchScore this.score}} <br/>
+							<span>
+								{{getMatchScore this.homeScore}} - {{getMatchScore this.awayScore}}	
+							</span>
 						</td>
 
-					</tr>
-					<tr class="row-prediction">
-						<td>
-							Prediction
-						</td>
-						<td class="col-hometeam">
-							<figure><img src = '{{getTeamPic this._match.homeTeamId}}' /></figure>
-							<span>{{getTeamName this._match.homeTeamId}}</span>
-						</td>
-						<td class="col-matchscore">
-							{{this.homeScore}} - {{this.awayScore}}
-						</td>
-						<td class="col-awayteam">
-							<span>{{getTeamName this._match.awayTeamId}}</span>
-							<figure><img src = '{{getTeamPic this._match.awayTeamId}}' /></figure>
-						</td>
-						<td></td>
 					</tr>
 					{{/foreach}}
 				</table>
 			</div>
 		</div>
 	</div>
-
 </div>
