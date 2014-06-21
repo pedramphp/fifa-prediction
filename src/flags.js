@@ -6,7 +6,7 @@
 	"Mexico"				: "mex",
 	"Cameroon"				: "cmr",
 	"Netherlands"			: "ned",
-	"Spain"					: "spa",
+	"Spain"					: "esp",
 	"Australia"				: "aus",
 	"Chile"					: "chi",
 	"Greece"				: "gre",
