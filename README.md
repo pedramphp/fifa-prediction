@@ -7,6 +7,15 @@ Fifa Prediction Program
 npm install
 grunt
 
+
+Under script folder
+// to generate all the basic data run.
+node load-data.js
+
+// for update call
+node update.js
+
+//--------------------------------------
 node clean-collections.js
 
 // create user records first (ONE TIME DEAL)

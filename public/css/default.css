@@ -74,28 +74,78 @@ body {
 .main-content {
   padding: 20px 0;
 }
+.main-content h1,
 .main-content h4 {
   font-weight: normal;
   text-align: center;
+  text-transform: capitalize;
 }
 .list-container {
   width: 700px;
   margin: 50px auto;
 }
-.list-container table th {
+.table-points th {
   color: #bdbdbd;
   font-weight: normal;
   text-align: left;
   font-size: 16px;
 }
-.list-container table td {
+.table-points td {
   font-size: 25px;
   border-bottom: 1px solid #303030;
   padding: 5px 0;
   text-transform: capitalize;
 }
-.list-container table .points {
+.table-points td a {
+  text-decoration: none;
+  color: #fff;
+}
+.table-points .points {
   text-align: center;
+}
+.table-predictions td {
+  border-color: #303030;
+}
+.table-predictions td.col-hometeam,
+.table-predictions td.col-awayteam {
+  width: 220px;
+}
+.table-predictions td.col-matchscore {
+  text-align: center;
+  font-size: 25px;
+}
+.table-predictions td.col-awayteam {
+  text-align: right;
+}
+.table-predictions figure {
+  display: inline-block;
+}
+.table-predictions img {
+  width: 50px;
+  vertical-align: middle;
+}
+.table-predictions td.col-awayteam img {
+  margin-right: 0;
+  margin-left: 5px;
+}
+.table-predictions td.col-score {
+  text-align: center;
+  font-size: 18px;
+}
+.table-predictions td.col-score a {
+  color: #fff;
+  font-size: 14px;
+}
+.table-predictions td.col-score a:hover {
+  opacity: .8;
+}
+.row-prediction {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+}
+.row-prediction.show {
+  display: table-row;
+  background: rgba(0, 0, 0, 0.5);
 }
 .hidden {
   display: none !important;
@@ -111,4 +161,19 @@ body {
 }
 .clearfix {
   *zoom: 1;
+}
+.score-correct {
+  background: green;
+}
+.score-not-started {
+  background: #999;
+}
+.score-correct-win {
+  background: #46C26B;
+}
+.score-correct-win-goal-diff {
+  background: #238240;
+}
+.score-wrong {
+  background: red;
 }
