@@ -44,6 +44,6 @@ predictionsJSON.users.forEach(function(user, userIndex){
 	});
 
 	setTimeout(function(){
-		process && process.exit();
+//		process && process.exit();
 	}, 15000)
 });
