@@ -35,7 +35,7 @@ predictionsJSON.users.forEach(function(user, userIndex){
 					predictionRecord.save(function(err){
 						console.log("saved prediction score - it: match index",matchIndex, " ", match , " for ", user.email);
 						if( matchsLen - 1 === matchIndex && usersLen - 1 === userIndex){
-							process && process.exit();
+				//			process && process.exit();
 						}
 					});
 				})
