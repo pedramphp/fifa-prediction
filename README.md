@@ -7,6 +7,10 @@ Fifa Prediction Program
 npm install
 grunt
 
+// you can also pass environment vars
+sudo HOST='0.0.0.0' forever start app.js   
+//or
+node HOST='0.0.0.0' app.js
 
 Under script folder
 // to generate all the basic data run.
