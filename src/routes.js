@@ -3,6 +3,8 @@ var request = require('request');
 
 var predictionsJSON = require('./predictions.json');
 var usersJSON = require('./users.json');
+var flagsJSON = require('./flags.json');
+
 
 
 var request = require("request");
@@ -55,6 +57,17 @@ exports.userMatch = function(req, res){
 				},
 				getDate: function(date){
 					return moment(date).format("MMM Do - HH:mm zz");
+				},
+				getTeamFlag: function(teamId){
+					var teamName = this.teams.filter(function(team){
+						return team.id === teamId;
+					})[0].name;
+
+					var teamShortName = flagsJSON[teamName];
+					if(teamShortName){
+						return "http://img.fifa.com/images/flags/4/" + teamShortName + ".png";
+					}
+					return "no";
 				}
 	        },
 	        layout: "main"
