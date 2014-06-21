@@ -16,6 +16,7 @@ var TeamModel = require('./model/team');
 var UserModel = require('./model/user');
 var PredictionModel = require('./model/prediction');
 var MatchModel = require('./model/match');
+var moment = require('moment');
 
 exports.userMatch = function(req, res){
 	function renderView(data){
@@ -51,6 +52,9 @@ exports.userMatch = function(req, res){
 					}
 					return types[score];
 
+				},
+				getDate: function(date){
+					return moment(date).format("MMM Do - HH:mm zz");
 				}
 	        },
 	        layout: "main"
