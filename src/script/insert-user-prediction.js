@@ -5,11 +5,16 @@ var PredictionModel = require('../model/prediction');
 
 var predictionsJSON = require('../predictions.json');
 
-var db = require('../db');
+var db = require('../db')();
 
 
-predictionsJSON.users.forEach(function(user){
-	user.matches.forEach(function(match){
+var usersLen = predictionsJSON.users.length;
+
+predictionsJSON.users.forEach(function(user, userIndex){
+
+	var matchsLen = user.matches.length;
+
+	user.matches.forEach(function(match, matchIndex){
 		var homeTeam = match[0];
 		var awayTeam = match[2];
 
@@ -28,8 +33,10 @@ predictionsJSON.users.forEach(function(user){
 					predictionRecord.awayScore = match[3];
 
 					predictionRecord.save(function(err){
-						console.log("saved it", match , " for ", user.email);
-
+						console.log("saved prediction score - it: match index",matchIndex, " ", match , " for ", user.email);
+						if( matchsLen - 1 === matchIndex && usersLen - 1 === userIndex){
+							process && process.exit();
+						}
 					});
 				})
 		});

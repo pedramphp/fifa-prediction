@@ -9,7 +9,8 @@ var request = require("request");
 var mongoose =  require('mongoose');
 var _ = require('underscore');
 
-var db = require('./db');
+var db = require('./db')();
+
 
 var TeamModel = require('./model/team');
 var UserModel = require('./model/user');

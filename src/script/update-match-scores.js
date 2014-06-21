@@ -3,12 +3,13 @@ var MatchModel = require('../model/match');
 var request = require('request');
 //#1: Creating All Users Record - One time job
 
-mongoose.connect('mongodb://localhost/fifa');
+var db = require('../db')();
+
 
 
 function process(data){
-
-	data.forEach(function(match){
+	var len = data.length;
+	data.forEach(function(match, index){
 		if(match.status !== 'Final'){
 			return;
 		}
@@ -29,7 +30,10 @@ function process(data){
 
 			matchInstance.save(function(err){
 				if (err) throw err;
-				console.log('New Team: ' + match.id + ' ' + match.homeScore + ' ' + match.awayScore + ' updated');
+				console.log('Update match score: Team: ' + match.id + ' ' + match.homeScore + ' ' + match.awayScore + ' updated');
+				if( index === len -1){
+					process.exit();
+				}
 			});
 
 		})

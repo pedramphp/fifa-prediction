@@ -5,9 +5,7 @@ var PredictionModel = require('../model/prediction');
 var MatchModel = require('../model/match');
 
 
-var db = require('../db');
-
-
+var db = require('../db')();
 
 var match,
 	matchScoreDiff,
@@ -26,7 +24,8 @@ PredictionModel
 	  select: 'awayScore homeScore status'
 	})
 	.exec(function (err, predictions) {
-		predictions.forEach(function(prediction){
+		var len = predictions.length;
+		predictions.forEach(function(prediction, index){
 			if(!prediction._match || !prediction._match.status){
 
 				return ;
@@ -67,8 +66,13 @@ PredictionModel
 				if(err){
 					throw err;
 				}
+
+				console.log("Prediction Score update", prediction);
+				if(len -1 === index){
+
+					console.log('prediction finished');
+					process.exit();
+				}
 			});
-			console.log(prediction);
 		});
-	console.log('prediction finished');
 	});

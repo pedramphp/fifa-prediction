@@ -2,7 +2,8 @@ var mongoose =  require('mongoose');
 var MatchModel = require('../model/match');
 var UserModel = require('../model/user');
 var PredictionModel = require('../model/prediction');
-var db = require('../db');
+var db = require('../db')();
+
 
 
 // #2 : Create Empty Prediction Records Per User. One time Job
@@ -19,8 +20,11 @@ MatchModel.find().exec(function(err, matches){
 
 var newPrediction;
 function createPrediction(matches, users){
-	users.forEach(function(user){
-		matches.forEach(function(match){
+	var userLen = users.length;
+
+	users.forEach(function(user, userIndex){
+		var matchLen = matches.length;
+		matches.forEach(function(match, matchIndex){
 
 			newPrediction = new PredictionModel();
 			newPrediction._user = user._id;
@@ -33,6 +37,9 @@ function createPrediction(matches, users){
 			newPrediction.save(function(err){
 				if (err) throw err;
 				console.log('New Prediction: ' + match.id + ' ' + user.email + ' created');
+				if(matchLen -1  === matchIndex && userLen -1  === userIndex){
+					process && process.exit();
+				}
 			});
 
 		});

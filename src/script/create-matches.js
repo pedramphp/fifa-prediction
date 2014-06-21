@@ -2,11 +2,12 @@ var mongoose =  require('mongoose');
 var MatchModel = require('../model/match');
 var request = require('request');
 
-var db = require('../db');
+var db = require('../db')();
 
-function process(data){
 
-	data.forEach(function(match){
+function processData(data){
+	var len = data.length;
+	data.forEach(function(match, index){
 
 		var newMatch = new MatchModel();
 		newMatch.homeScore=match.homeScore;
@@ -24,6 +25,9 @@ function process(data){
 		newMatch.save(function(err){
 			if (err) throw err;
 			console.log('New Match: ' + match.id + ' created');
+			if(len- 1 === index){
+				 process && process.exit();
+			}
 		});
 
 	});
@@ -32,5 +36,5 @@ function process(data){
 
 
 request("http://worldcup.kimonolabs.com/api/matches?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a", function(err, response, body) {
-  process(JSON.parse(body));
+  processData(JSON.parse(body));
 });

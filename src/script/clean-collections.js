@@ -4,7 +4,8 @@ var UserModel = require('../model/user');
 var PredictionModel = require('../model/prediction');
 var MatchModel = require('../model/match');
 
-var db = require('../db');
+var db = require('../db')();
+
 
 
 TeamModel.remove({}, function(err) { 
@@ -24,4 +25,5 @@ MatchModel.remove({}, function(err) {
 
 PredictionModel.remove({}, function(err) { 
    console.log('PredictionModel model empty'); 
+    process.exit();
 });

@@ -1,10 +1,13 @@
 var mongoose =  require('mongoose');
 var TeamModel = require('../model/team');
 var request = require('request');
-var db = require('../db');
+var db = require('../db')();
+console.log('AFTER DB COnnection');
 
-function process(data){
-	data.forEach(function(team){
+
+function processData(data){
+	var len = data.length;
+	data.forEach(function(team, index){
 
 		var newTeam = new TeamModel();
 		newTeam.address=team.address;
@@ -30,6 +33,9 @@ function process(data){
 		newTeam.save(function(err){
 			if (err) throw err;
 			console.log('New Team: ' + newTeam.name + ' created');
+			if(len- 1 === index){
+				 process && process.exit();
+			}
 		});
 
 	});
@@ -37,5 +43,5 @@ function process(data){
 
 
 request("http://worldcup.kimonolabs.com/api/teams?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a", function(err, response, body) {
-  process(JSON.parse(body));
+  processData(JSON.parse(body));
 });
