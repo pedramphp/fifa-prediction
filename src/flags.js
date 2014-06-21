@@ -29,7 +29,6 @@
 	"Ghana"					: "gha",
 	"United States"			: "usa",
 	"Belgium"				: "bel",
-	"Algeria"				: "alg",
 	"Russia"				: "rus",
 	"Korea Republic"		: "kor"
 }
