@@ -12,6 +12,9 @@ sudo HOST='0.0.0.0' forever start app.js
 //or
 node HOST='0.0.0.0' app.js
 
+//stop your server
+forever stop app.js
+
 Under script folder
 // to generate all the basic data run.
 node load-data.js
