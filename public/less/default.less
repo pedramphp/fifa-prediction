@@ -187,6 +187,77 @@ body{
     display: inline-block;
 }
 
+.match-result{
+    position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.match-result.fixed{
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, .8);
+}
+
+.match-result table{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.match-result td > *{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.match-result td.col-hometeam img{
+    margin-right: 10px;
+}
+
+.match-result td.col-awayteam img{
+    margin-left: 10px;
+}
+
+.match-result td.col-matchscore{
+    font-size: 25px;
+}
+
+.match-prediction-container{
+    margin-top: 120px;
+}
+
+.table-match-prediction td{
+    text-align: center;
+}
+
+.table-match-prediction td.col-name{
+    width: 400px;
+}
+
+.table-match-prediction td.col-score{
+    text-align: center;
+    font-size: 18px;
+}
+
+.table-match-prediction td.points{
+    font-size: 25px;
+}
+
+.table-match-prediction th{
+    border: none;
+    color: #bdbdbd;
+    font-weight: normal;
+    text-align: left;
+    font-size: 16px;
+}
+
+.table-match-prediction .row-predict td{
+    border: 1px solid #303030;
+}
+
 .hidden {
     display: none !important;
     visibility: hidden;
