@@ -16,7 +16,9 @@ function process(data){
 	
 		MatchModel.findOne({
 			id: match.id,
-			status: 'Pre-game'
+			status:{
+				 $in:['Pre-game','In-progress']
+			}
 		}).exec(function(err, matchInstance){
 			
 			if(!matchInstance ){

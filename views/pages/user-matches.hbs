@@ -25,7 +25,7 @@
 						Group {{this._match.group}}
 						</td>
 						<td class="col-hometeam">
-							<figure><img src = '{{getTeamPic this._match.homeTeamId}}' /></figure>
+							<figure><img src = '{{getTeamFlag this._match.homeTeamId}}' /></figure>
 							<span>{{getTeamName this._match.homeTeamId}}</span>
 						</td>
 						<td class="col-matchscore">
@@ -33,10 +33,10 @@
 						</td>
 						<td class="col-awayteam">
 							<span>{{getTeamName this._match.awayTeamId}}</span>
-							<figure><img src = '{{getTeamPic this._match.awayTeamId}}' /></figure>
+							<figure><img src = '{{getTeamFlag this._match.awayTeamId}}' /></figure>
 						</td>
 						<td class="col-score score-{{getScoreType this.score}}">
-							Score: {{getMatchScore this.score}} <br/>
+							Score: <i>{{getMatchScore this.score}}</i> <br/>
 							<span>
 								{{getMatchScore this.homeScore}} - {{getMatchScore this.awayScore}}	
 							</span>

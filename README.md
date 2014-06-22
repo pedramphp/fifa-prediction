@@ -5,12 +5,16 @@ Fifa Prediction Program
 ---------------------
 ```sh
 npm install
-grunt
+grunt // this will run your application 
 
-// you can also pass environment vars
+
+// you can also pass environment vars for Production
 sudo HOST='0.0.0.0' forever start app.js   
 //or
 node HOST='0.0.0.0' app.js
+
+//stop your server
+forever stop app.js
 
 Under script folder
 // to generate all the basic data run.
@@ -20,7 +24,15 @@ node load-data.js
 node update.js
 
 //--------------------------------------
+
+//UNDER THE SRC/SCRIPT FOLDER
+
+//will remove all collections and run all the scripts below
+node load-data.js
+
+// remove all collections
 node clean-collections.js
+
 
 // create user records first (ONE TIME DEAL)
 node create-users.js
@@ -41,6 +53,12 @@ node insert-user-prediction.js
 // update each user prediction match score based on the current matches.
 node update-prediction-scores.js
 
+// ONCE you setup every thing you need to run these commands everyday after matches are finished. or run cronjob.
+//------------------------------------
+
+// will run the below commands.
+node update.js
+
 // update match table with new scores.
 node update-match-scores.js
 
@@ -49,35 +67,11 @@ node update-prediction-scores.js
 
 
 ```
-once you type grunt in command line your chrome web browser will load.
-
-
-fifa2 @ http://fifa2-mexoinc.rhcloud.com/ (uuid: 53a32c064382ec676600054b)
---------------------------------------------------------------------------
-  Domain:          mexoinc
-  Created:         11:29 AM
-  Gears:           1 (defaults to small)
-  Git URL:         ssh://53a32c064382ec676600054b@fifa2-mexoinc.rhcloud.com/~/git/fifa2.git/
-  Initial Git URL: http://github.com/pedramphp/fifa-prediction.git
-  SSH:             53a32c064382ec676600054b@fifa2-mexoinc.rhcloud.com
-  Deployment:      auto (on git push)
-
-  nodejs-0.10 (Node.js 0.10)
-  --------------------------
-    Gears: 1 small
-
-
 
 #API
 ------------------
 
-###Daily match scores
----------------------------
-```url
-http://www.kimonolabs.com/api/cp27e5wi?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
-```
-
-### All Matches
+### All Matches - includes the match score
 -----------------
 ```url
 http://www.kimonolabs.com/api/98unoz7e?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
@@ -86,7 +80,7 @@ http://www.kimonolabs.com/api/98unoz7e?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
 ###All Qualified Teams
 ---------------------------
 ```url
-http://www.kimonolabs.com/api/aqp90wd0?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
+http://worldcup.kimonolabs.com/api/matches?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
 ```
 
 #Game Rules

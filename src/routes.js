@@ -3,7 +3,7 @@ var request = require('request');
 
 var predictionsJSON = require('./predictions.json');
 var usersJSON = require('./users.json');
-
+var flagsJSON = require('./flags.json');
 
 var request = require("request");
 var mongoose =  require('mongoose');
@@ -55,6 +55,17 @@ exports.userMatch = function(req, res){
 				},
 				getDate: function(date){
 					return moment(date).format("MMM Do - HH:mm zz");
+				},
+				getTeamFlag: function(teamId){
+					var teamName = this.teams.filter(function(team){
+						return team.id === teamId;
+					})[0].name;
+
+					var teamShortName = flagsJSON[teamName];
+					if(teamShortName){
+						return "http://img.fifa.com/images/flags/4/" + teamShortName + ".png";
+					}
+					return "no";
 				}
 	        },
 	        layout: "main"
@@ -127,26 +138,45 @@ exports.home = function(req, res){
 		_id: "$_user",
 		totalScore:{
 			$sum: "$score"
-		}		
+		}
 	}).sort({
 		totalScore: -1
 	}).exec(function(error, results){
-
+		results = JSON.parse(JSON.stringify(results));
 		if(!results){
 			renderView(results);
 		}
 
 		var len = results.length;
+		var i = 0;
 		results.forEach(function(record, index){
 			UserModel
 				.findOne({
 					_id: mongoose.Types.ObjectId( record._id )
 				})
+				.lean()
 				.exec(function(error, user){
 					record.user = user;
-					if(len - 1 === index){
-						renderView(results);
+					if(len - 1 !== i){
+						i++;
+						return;
 					}
+					results.sort(function(a, b){
+						var aScore = a.totalScore;
+						var bScore = b.totalScore;
+						
+						if(aScore === bScore){
+							if(a.user.firstname === b.user.firstname){
+								return 0
+							}
+							return a.user.firstname > b.user.firstname ? 1 : -1;
+						}
+						return aScore > bScore ? -1 : 1;
+						
+
+					});
+					renderView(results);
+					i++;
 				});
 				
 		});
