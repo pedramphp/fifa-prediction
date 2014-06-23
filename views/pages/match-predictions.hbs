@@ -1,0 +1,64 @@
+{{#extend "stylesheets"}}
+<link rel="stylesheet" href="/css/page/home.css"/>
+{{/extend}}
+
+<div class="bg"></div>
+<div class="content">
+	<header class="main-header clearfix">
+		<div class="wrapper">
+			<h1>FIFA WORLD CUP 2014<br>PREDICTION</h1>
+			<img src="/images/logo-wc2014.png" alt="" />
+		</div>
+	</header>
+	<div class="match-result">
+		<table border="0" cellpadding="10" cellpadding="0" width="100%">
+			<tr>
+				<td colspan="3">Match Date</td>
+			</tr>
+			<tr>
+				<td class="col-hometeam">
+					<img src = 'http://img.fifa.com/images/flags/4/rus.png' />
+					<span>Russian</span>
+				</td>
+				<td class="col-matchscore">
+					16:00
+				</td>
+				<td class="col-awayteam">
+					<span>Belgium</span>
+					<img src = 'http://img.fifa.com/images/flags/4/bel.png' />
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="main-content match-prediction-container">
+		<div class="wrapper">
+			<div class="list-container clearfix">
+				<a href="../" class="link-back">&larr; Back to List</a>
+				<table border="0" cellpadding="20" width="100%" class="table-match-prediction">
+					<thead>
+						<tr>
+							<th width="5%">Rank</th>
+							<th width="70%">Name</th>
+							<th width="15%" class="points">Prediction</th>
+							<th width="5%">Score</th>
+						</tr>
+					</thead>
+					{{#foreach this.data}}
+					<tr class="row-predict">
+						<td>{{math this.$index "+" 1}}</td>
+						<td class="col-name">
+							<a href='user/{{this._id}}'> 
+								{{this.user.firstname}} {{this.user.lastname}}
+							</a>
+						</td>
+						<td class="col-score score-{{getScoreType this.score}}">
+							{{getMatchScore this.homeScore}} - {{getMatchScore this.awayScore}}	
+						</td>
+						<td class="points">{{getMatchScore this.score}}</td>
+					</tr>
+					{{/foreach}}
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
