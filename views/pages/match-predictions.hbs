@@ -67,3 +67,24 @@
 		</div>
 	</div>
 </div>
+
+{{#extend "js"}}
+	<script>
+	
+	$(function(){
+		var matchTop = $('.match-result').offset().top;
+		$(window).scroll(function(){
+			setTimeout(adjustMatchResult, 100);
+		});
+
+		function adjustMatchResult(){
+			var scrollTop = $(window).scrollTop();
+			if(matchTop < scrollTop){
+				$('.match-result').addClass('fixed');
+			}else{
+				$('.match-result').removeClass('fixed');
+			}			
+		}
+	});
+	</script>
+{{/extend}}
