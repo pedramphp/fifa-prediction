@@ -17,14 +17,19 @@
 			</tr>
 			<tr>
 				<td class="col-hometeam">
-					<img src = 'http://img.fifa.com/images/flags/4/rus.png' />
-					<span>Russian</span>
+					<img src = '{{getTeamFlag this.data.0._match.homeTeamId}}' />
+					<span>{{this.data.0.teams.0.name}}</span>
 				</td>
 				<td class="col-matchscore">
-					16:00
+				  {{#ifCond this.data.0.status '!=' 'done'}}
+				  	{{getDate this.data.0._match.startTime}} 
+				  {{/ifCond}}
+				  {{#ifCond this.data.0.status '==' 'done'}}
+					{{this.data.0._match.homeScore}} - {{this.data.0._match.awayScore}}				  
+				  {{/ifCond}}
 				</td>
 				<td class="col-awayteam">
-					<span>Belgium</span>
+					<span>{{this.data.0.teams.1.name}}</span>
 					<img src = 'http://img.fifa.com/images/flags/4/bel.png' />
 				</td>
 			</tr>
@@ -47,8 +52,8 @@
 					<tr class="row-predict">
 						<td>{{math this.$index "+" 1}}</td>
 						<td class="col-name">
-							<a href='user/{{this._id}}'> 
-								{{this.user.firstname}} {{this.user.lastname}}
+							<a href='/user/{{this._user._id}}'> 
+								{{this._user.firstname}} {{this._user.lastname}}
 							</a>
 						</td>
 						<td class="col-score score-{{getScoreType this.score}}">
