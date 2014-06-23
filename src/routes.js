@@ -151,7 +151,6 @@ exports.matchPrediciotns = function(req, res){
 					i++;
 					return;
 				}
-				console.log('GIT HERE');
 				predictions.sort(function(a, b){
 
 					var aScore = a.score;
