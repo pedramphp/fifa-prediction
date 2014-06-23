@@ -36,7 +36,10 @@
 							<figure><img src = '{{getTeamFlag this._match.awayTeamId}}' /></figure>
 						</td>
 						<td class="col-score score-{{getScoreType this.score}}">
-							Score: <i>{{getMatchScore this.score}}</i> <br/>
+							<label>
+								<b>Score:</b>
+								<i>{{getMatchScore this.score}}</i>
+							</label>
 							<span>
 								{{getMatchScore this.homeScore}} - {{getMatchScore this.awayScore}}	
 							</span>
