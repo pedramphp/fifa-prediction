@@ -18,7 +18,7 @@
 			<tr>
 				<td class="col-hometeam">
 					<img src = '{{getTeamFlag this.data.0._match.homeTeamId}}' />
-					<span>{{this.data.0.teams.0.name}}</span>
+					<span>{{this.data.0.homeName}}</span>
 				</td>
 				<td class="col-matchscore">
 				  {{#ifCond this.data.0.status '!=' 'done'}}
@@ -29,7 +29,7 @@
 				  {{/ifCond}}
 				</td>
 				<td class="col-awayteam">
-					<span>{{this.data.0.teams.1.name}}</span>
+					<span>{{this.data.0.awayName}}</span>
 					<img src = '{{getTeamFlag this.data.0._match.awayTeamId}}' />
 				</td>
 			</tr>

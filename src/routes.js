@@ -145,8 +145,8 @@ exports.matchPrediciotns = function(req, res){
 		predictions.forEach(function(prediction, index){
 			TeamModel.findTeamsById([prediction._match.homeTeamId,prediction._match.awayTeamId], function(err, teams){
 				prediction.teams = teams;
-			
-
+				prediction.awayName = teams.filter(function(team){ return team.id === prediction._match.awayTeamId })[0].name;
+				prediction.homeName = teams.filter(function(team){ return team.id === prediction._match.homeTeamId })[0].name;
 				if(len - 1 !== i){
 					i++;
 					return;
