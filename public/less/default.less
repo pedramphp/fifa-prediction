@@ -4,6 +4,13 @@
     box-sizing:border-box;
 }
 
+a,a:link{
+    -webkit-transition: all .12s ease;
+    -moz-transition: all .12s ease;
+    -o-transition: all .12s ease;
+    transition: all .12s ease;
+}
+
 html,
 button,
 input,
@@ -122,6 +129,16 @@ body{
     text-align: center;
 }
 
+.table-predictions tr{
+    -webkit-transition: all .12s ease;
+    -moz-transition: all .12s ease;
+    -o-transition: all .12s ease;
+    transition: all .12s ease;
+}
+.table-predictions tr:hover{
+    background: rgba(0,0,0,.5);
+}
+
 .table-predictions td{
     border-color: #303030;
 }
@@ -231,10 +248,17 @@ body{
 
 .table-match-prediction td{
     text-align: center;
+    font-size: 25px;
 }
 
 .table-match-prediction td.col-name{
     width: 400px;
+    text-align: left;
+}
+.table-match-prediction td.col-name a{
+    color: #fff;
+    text-decoration: none;
+    text-transform: capitalize;
 }
 
 .table-match-prediction td.col-score{
