@@ -74,13 +74,13 @@ node update-prediction-scores.js
 ### All Matches - includes the match score
 -----------------
 ```url
-http://www.kimonolabs.com/api/98unoz7e?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
+http://worldcup.kimonolabs.com/api/matches?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
 ```
 
 ###All Qualified Teams
 ---------------------------
 ```url
-http://worldcup.kimonolabs.com/api/matches?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
+http://worldcup.kimonolabs.com/api/teams?apikey=ad2ff693e51d4cc636bdd59c3daf4e2a
 ```
 
 #Game Rules
